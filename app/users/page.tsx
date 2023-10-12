@@ -6,6 +6,7 @@ interface User {
   id: number;
   name: string;
   username: string;
+  email: string;
 }
 
 const UsersPage = async () => {
@@ -13,7 +14,7 @@ const UsersPage = async () => {
   const res = await fetch(
     'https://jsonplaceholder.typicode.com/users',
     {
-      cache: 'no-store' 
+      cache: 'no-store'
       //doesnt keep the cache as default
       //next: {revalidate: s} runs a background job every s seconds 
 
@@ -30,9 +31,18 @@ const UsersPage = async () => {
       <h1>Users</h1>
       <p>{new Date().toLocaleTimeString()}</p>
 
-      <ul>
-        {users.map(user => <li key={user.id}>{user.name} also known as {user.username}</li>)}
-      </ul>
+      <table className="table table-bordered" >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>{users.map(user => <tr key={user.id}>
+          <td>{user.name}</td> 
+          <td>{user.email}</td>
+          </tr>)}</tbody>
+      </table>
     </>
   )
 }
