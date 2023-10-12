@@ -9,7 +9,14 @@ interface User {
 }
 
 const UsersPage = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users');
+  //caching behavouir is only implimented in the fetch function ONLY.
+  const res = await fetch(
+    'https://jsonplaceholder.typicode.com/users',
+    {
+      //cache:'no-store' doesnt keep the cache as default
+      //next: {revalidate: s} runs a background job every s seconds 
+      next: { revalidate: 10 }
+    });
 
   // Fetch and parse user data from the API, and cast it as an array of User objects
 
